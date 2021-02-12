@@ -66,8 +66,7 @@ const addManager = async () => {
     let data = await promptManager();
     let manager = new Manager(data.name, data.id, data.email, data.officeNumber )
     employees.push(manager);
-    let html = render(employees)
-    console.log(html);
+    fs.writeFileSync(outputPath, render(employees));
 };
 
 addManager();
