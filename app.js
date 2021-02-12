@@ -63,11 +63,7 @@ const promptManager = () => {
 };
 
 const addManager = async () => {
-    let obj = await promptManager();
-    let manager = new Manager(obj.name, obj.id, obj.email, obj.officeNumber )
+    let data = await promptManager();
+    let manager = new Manager(data.name, data.id, data.email, data.officeNumber )
     employees.push(manager);
-    console.log(employees);
-    console.log(employees[0].getRole());
 };
-
-addManager();
