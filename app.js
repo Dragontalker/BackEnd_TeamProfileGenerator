@@ -43,13 +43,31 @@ const promptManager = () => {
             name: 'name',
             message: 'What is the name of your team manager?',
         },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the ID of your team manager?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the E-mail of your team manager?',
+        },
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: 'What is the officer number of your team manager?',
+        },
+
     ])
 };
 
 const addManager = async () => {
     let obj = await promptManager();
-    employees.push(obj);
+    let manager = new Manager(obj.name, obj.id, obj.email, obj.officeNumber )
+    employees.push(manager);
     console.log(employees);
+    console.log(employees[0].getRole());
 };
 
 addManager();
