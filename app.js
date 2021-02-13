@@ -146,10 +146,10 @@ const addTeam = async (list) => {
     let roleChoice = await promptTeam();
     if (roleChoice.role === 'Need another engineer.') {
         await addEngineer(list);
-        addTeam();
+        addTeam(list);
     } else if (roleChoice.role === 'Need to bring another intern on the team.') {
         await addIntern(list);
-        addTeam();
+        addTeam(list);
     } else {
         fs.writeFileSync(outputPath, render(list));
         console.log('Your HTML file team.html is now ready! Check it under ./dict!')
@@ -158,8 +158,10 @@ const addTeam = async (list) => {
 
 const buildHTML = async () => {
     const employees = [];
+    console.log('Start your team by choose a team manager!')
     await addManager(employees);
-    addTeam();
+    console.log('Now it is the time to fill the remaining spots!')
+    addTeam(employees);
 }
 
 buildHTML();
