@@ -34,8 +34,6 @@ const render = require("./lib/htmlRenderer");
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
-const employees = [];
-
 const promptManager = () => {
     return inquirer.prompt([
         {
@@ -61,10 +59,10 @@ const promptManager = () => {
     ])
 };
 
-const addManager = async () => {
+const addManager = async (list) => {
     let data = await promptManager();
     let manager = new Manager(data.name, data.id, data.email, data.officeNumber);
-    employees.push(manager);
+    list.push(manager);
 };
 
 const promptEngineer = () => {
@@ -92,10 +90,10 @@ const promptEngineer = () => {
     ])
 };
 
-const addEngineer = async () => {
+const addEngineer = async (list) => {
     let data = await promptEngineer();
     let engineer = new Engineer(data.name, data.id, data.email, data.github);
-    employees.push(engineer);
+    list.push(engineer);
 };
 
 const promptIntern = () => {
@@ -123,19 +121,45 @@ const promptIntern = () => {
     ])
 };
 
-const addIntern = async () => {
+const addIntern = async (list) => {
     let data = await promptIntern();
-    let intern = new Engineer(data.name, data.id, data.email, data.school);
-    employees.push(intern);
+    let intern = new Intern(data.name, data.id, data.email, data.school);
+    list.push(intern);
 };
 
-const testHTML = async () => {
-    await addManager();
-    await addEngineer();
-    await addEngineer();
-    await addEngineer();
-    await addIntern();
-    fs.writeFileSync(outputPath, render(employees));
+const promptTeam = () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'role',
+            message: 'Choose which roles you want to fill next: ',
+            choices: [
+                'Need another engineer.',
+                'Need to bring another intern on the team.',
+                'I am done building my team, build the HTML now!',
+            ],
+        },
+    ])
+};
+
+const addTeam = async (list) => {
+    let roleChoice = await promptTeam();
+    if (roleChoice.role === 'Need another engineer.') {
+        await addEngineer(list);
+        addTeam();
+    } else if (roleChoice.role === 'Need to bring another intern on the team.') {
+        await addIntern(list);
+        addTeam();
+    } else {
+        fs.writeFileSync(outputPath, render(list));
+        console.log('Your HTML file team.html is now ready! Check it under ./dict!')
+    }
 }
 
-testHTML();
+const buildHTML = async () => {
+    const employees = [];
+    await addManager(employees);
+    addTeam();
+}
+
+buildHTML();
