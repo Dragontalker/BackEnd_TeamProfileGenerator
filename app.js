@@ -65,7 +65,6 @@ const addManager = async () => {
     let data = await promptManager();
     let manager = new Manager(data.name, data.id, data.email, data.officeNumber);
     employees.push(manager);
-    fs.writeFileSync(outputPath, render(employees));
 };
 
 const promptEngineer = () => {
@@ -99,6 +98,44 @@ const addEngineer = async () => {
     employees.push(engineer);
 };
 
+const promptIntern = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the name of your intern?',
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the ID of your intern?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the E-mail of your intern?',
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'Which school is your intern from?',
+        },
+    ])
+};
 
+const addIntern = async () => {
+    let data = await promptIntern();
+    let intern = new Engineer(data.name, data.id, data.email, data.school);
+    employees.push(intern);
+};
 
-addManager();
+const testHTML = async () => {
+    await addManager();
+    await addEngineer();
+    await addEngineer();
+    await addEngineer();
+    await addIntern();
+    fs.writeFileSync(outputPath, render(employees));
+}
+
+testHTML();
