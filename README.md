@@ -1,7 +1,23 @@
-# 10 Object-Oriented Programming: Team Profile Generator
+# Team Profile Generator
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Link to video
+## Link to video walkthrough
 https://drive.google.com/file/d/15bejtqt_lGwkDKYnS66YTFCHpLy9bJvK/view
+
+## Screenshot
+
+Passed all test:
+
+![team profile screenshot](./Assets/Images/screenshot_3.png)
+
+All user input:
+
+![team profile screenshot](./Assets/Images/screenshot_2.png)
+
+Generated HTML file:
+
+![team profile screenshot](./Assets/Images/screenshot_1.png)
+
 
 ## Your Task
 
