@@ -58,15 +58,47 @@ const promptManager = () => {
             name: 'officeNumber',
             message: 'What is the officer number of your team manager?',
         },
-
     ])
 };
 
 const addManager = async () => {
     let data = await promptManager();
-    let manager = new Manager(data.name, data.id, data.email, data.officeNumber )
+    let manager = new Manager(data.name, data.id, data.email, data.officeNumber);
     employees.push(manager);
     fs.writeFileSync(outputPath, render(employees));
 };
+
+const promptEngineer = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the name of your engineer?',
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the ID of your engineer?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the E-mail of your engineer?',
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is the GitHub user name of your engineer?',
+        },
+    ])
+};
+
+const addEngineer = async () => {
+    let data = await promptEngineer();
+    let engineer = new Engineer(data.name, data.id, data.email, data.github);
+    employees.push(engineer);
+};
+
+
 
 addManager();
