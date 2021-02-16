@@ -59,6 +59,7 @@ const promptManager = () => {
     ])
 };
 
+// Helper function: addManager. Takes an array as input, then takes user input as an object, and store it back into the array.
 const addManager = async (list) => {
     let data = await promptManager();
     let manager = new Manager(data.name, data.id, data.email, data.officeNumber);
@@ -90,6 +91,7 @@ const promptEngineer = () => {
     ])
 };
 
+// Similar to addManager.
 const addEngineer = async (list) => {
     let data = await promptEngineer();
     let engineer = new Engineer(data.name, data.id, data.email, data.github);
@@ -121,12 +123,14 @@ const promptIntern = () => {
     ])
 };
 
+// Similar purpose as addManager and addEngineer.
 const addIntern = async (list) => {
     let data = await promptIntern();
     let intern = new Intern(data.name, data.id, data.email, data.school);
     list.push(intern);
 };
 
+// This function adds a selecting feature for user, which register their choice among the three provided choices.
 const promptTeam = () => {
     return inquirer.prompt([
         {
@@ -142,6 +146,7 @@ const promptTeam = () => {
     ])
 };
 
+// Helper function: addTeam. Similar to addManager, addEngineer and addInter. However, the next prompt depends on the output from propmptTeam selection. If user made the choice of finish team building, then an html is created.
 const addTeam = async (list) => {
     let roleChoice = await promptTeam();
     if (roleChoice.role === 'Need another engineer.') {
@@ -156,6 +161,7 @@ const addTeam = async (list) => {
     }
 }
 
+// Main function: all the results are stored in an array called employees. As the acceptance criteria required, first a manager is selected, then the user can choose any combination of engineers and interns, when he/she is done, html is created in desination folder.
 const buildHTML = async () => {
     const employees = [];
     console.log('Start your team by choose a team manager!')
